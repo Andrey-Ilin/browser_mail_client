@@ -1,0 +1,26 @@
+<div class="inbox col-sm-10">
+    <ul class="list-unstyled">
+        <li class="email-item row unread" ng-repeat="letter in $ctrl.letters">
+            <div class="people col-sm-3">
+                <ul class="mail-icons list-inline">
+                    <li>
+                        <input type="checkbox" class="mail-select">
+                    </li>
+                </ul>
+
+<span class="people-names pending">
+{{letter.to}}
+</span>
+            </div><!-- people -->
+
+            <div class="message col-sm-7">
+                <div class="clipper">
+                    <h3>{{letter.subject}}</h3>
+                    -
+                    <p>{{letter.body}}</p>
+                </div>
+            </div><!-- message -->
+        </li>
+    </ul>
+</div><!-- inbox -->
+</div><!-- mail -->

@@ -4,18 +4,10 @@
     </button>
 
     <ul class="inbox-sections list-unstyled">
-        <li class="active">
-            Inbox (100)
-        </li>
-        <li>Sent Mail</li>
-        <li class="pending">
-            Drafts (7)
-        </li>
-        <li>All Mail</li>
-        <li class="pending">
-            Spam (1)
-        </li>
+        <li class="pending" ng-repeat="mailbox in $ctrl.mailboxes" ng-click="$ctrl.choseMailbox(mailbox)">{{mailbox.title}}</li>
     </ul>
+
+    {{$ctrl.mailboxId}}
 </div><!-- sidebar -->
 
 <div ui-view></div>

@@ -4,8 +4,8 @@ export default function ($urlRouterProvider, $transitionsProvider, $stateProvide
     "ngInject";
 
     $urlRouterProvider.when('', '/login');
-    $urlRouterProvider.when('/common', '/common/mail/inbox');
-    $urlRouterProvider.when('/common/mail', '/common/mail/inbox');
+    $urlRouterProvider.when('/common', '/common/mail/letters');
+    $urlRouterProvider.when('/common/mail', '/common/mail/letters');
     $urlRouterProvider.otherwise('404');
 
     $transitionsProvider.onBefore({
@@ -34,21 +34,42 @@ export default function ($urlRouterProvider, $transitionsProvider, $stateProvide
         .state('common', {
             url: '/common',
             abstract: 'mail',
-            template: '<common-page></common-page>',
+            template: '<common-page mailboxId="mailboxId"></common-page>',
             requiresAuth: true
         })
         .state('mail', {
             url: '/mail',
             parent: 'common',
-            abstract: 'inbox',
-            template: '<mail-boxes></mail-boxes>',
-            requiresAuth: true
+            abstract: 'letters',
+            template: '<mail-boxes mailboxes="mailboxes"></mail-boxes>',
+            requiresAuth: true,
+            resolve: {
+                mailboxes: (Restangular) => {
+                    "ngInject";
+          
+                    return Restangular.all('mailboxes').getList();
+                }
+            },
+            controller: function ($scope, mailboxes) {
+                $scope.mailboxes = mailboxes;
+            }
         })
-        .state('inbox', {
-            url: '/inbox',
+        .state('letters', {
+            url: '/letters',
             parent: 'mail',
-            template: '<inbox-mail></inbox-mail>',
-            requiresAuth: true
+            template: '<letters letters="letters"></letters>',
+            requiresAuth: true,
+            resolve: {
+                letters: (Restangular) => {
+                    "ngInject";
+
+                    return Restangular.all('letters').getList();
+                }
+            },
+            controller: function ($scope, letters) {
+                $scope.letters = letters;
+
+            }
         })
         .state('contacts', {
             url: '/contacts',
@@ -58,6 +79,7 @@ export default function ($urlRouterProvider, $transitionsProvider, $stateProvide
             resolve: {
                 contacts: (Restangular) => {
                     "ngInject";
+                    
                     return Restangular.all('users').getList();
                 }
             },
