@@ -10,6 +10,7 @@ function controller($uibModal) {
     };
     
     this.modalController = function ($scope, $uibModalInstance) {
+        
         // $scope.ok = function () {
         //     $uibModalInstance.close(----data from form-----);
         // };

@@ -363,6 +363,7 @@
 	    };
 
 	    this.modalController = function ($scope, $uibModalInstance) {
+
 	        // $scope.ok = function () {
 	        //     $uibModalInstance.close(----data from form-----);
 	        // };
@@ -392,7 +393,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"sidebar col-sm-2\">\n    <button class=\"compose btn btn-danger\" ng-click=\"$ctrl.openModal()\">\n        Compose\n    </button>\n\n    <ul class=\"inbox-sections list-unstyled\">\n        <li class=\"pending\" ng-repeat=\"mailbox in $ctrl.mailboxes\" ng-click=\"$ctrl.choseMailbox(mailbox)\">{{mailbox.title}}</li>\n    </ul>\n\n    {{$ctrl.mailboxId}}\n</div><!-- sidebar -->\n\n<div ui-view></div>";
+	module.exports = "<div class=\"sidebar col-sm-2\">\n    <button class=\"compose btn btn-danger\" ng-click=\"$ctrl.openModal()\">\n        Compose\n    </button>\n    <ul class=\"inbox-sections list-unstyled\">\n        <li class=\"pending\" ng-repeat=\"mailbox in $ctrl.mailboxes\" ng-click=\"$ctrl.choseMailbox(mailbox)\">{{mailbox.title}}</li>\n    </ul>\n</div><!-- sidebar -->\n\n<div ui-view></div>";
 
 /***/ },
 /* 9 */
@@ -858,7 +859,7 @@
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"modal-header\">\n    <form class=\"form-horizontal\" name=\"emailSendForm\" role=\"form\" novalidate>\n\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : emailSendForm.email.$invalid && !emailSendForm.email.$pristine }\">\n            <label for=\"email\" class=\"col-sm-2 control-label\">To:</label>\n            <div class=\"col-sm-10\">\n                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Email address\" value=\"\" ng-model=\"$ctrl.email\">\n                <div ng-messages=\"emailSendForm.email.$error\">\n                    <div ng-message=\"email\"  class=\"alert-danger\">Enter a valid\n                        email.</div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"name\" class=\"col-sm-2 control-label\">Subject:</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" placeholder=\"\" value=\"\">\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"message\" class=\"col-sm-2 control-label\">Message:</label>\n            <div class=\"col-sm-10\">\n                <textarea class=\"form-control\" rows=\"4\" name=\"message\"></textarea>\n            </div>\n        </div>\n        <div class=\"form-group\">\n            <div class=\"col-sm-10 col-sm-offset-2\">\n                <input id=\"submit\" name=\"submit\" type=\"submit\" value=\"Send\" class=\"btn btn-primary\">\n                <button class=\"btn btn-warning\" ng-click=\"cancel()\">Cancel</button>\n            </div>\n        </div>\n    </form>\n";
+	module.exports = "<div class=\"modal-header\">\n    <form class=\"form-horizontal\" name=\"emailSendForm\" role=\"form\" novalidate>\n\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : emailSendForm.email.$invalid && !emailSendForm.email.$pristine }\">\n            <label for=\"email\" class=\"col-sm-2 control-label\">To:</label>\n            <div class=\"col-sm-10\">\n                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Email address\" value=\"\" ng-model=\"$ctrl.email\">\n                <div ng-messages=\"emailSendForm.email.$error\">\n                    <div ng-message=\"email\"  class=\"alert-danger\">Enter a valid\n                        email.</div>\n                </div>\n            </div>\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\" class=\"col-sm-2 control-label\">Subject:</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" placeholder=\"\" value=\"\">\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"message\" class=\"col-sm-2 control-label\">Message:</label>\n            <div class=\"col-sm-10\">\n                <textarea class=\"form-control\" rows=\"4\" name=\"message\"></textarea>\n            </div>\n        </div>\n        <div class=\"form-group\">\n            <div class=\"col-sm-10 col-sm-offset-2\">\n                <input id=\"submit\" name=\"submit\" type=\"submit\" value=\"Send\" class=\"btn btn-primary\">\n                <button class=\"btn btn-warning\" ng-click=\"cancel()\">Cancel</button>\n            </div>\n        </div>\n    </form>\n";
 
 /***/ }
 /******/ ]);

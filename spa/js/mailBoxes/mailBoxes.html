@@ -2,12 +2,9 @@
     <button class="compose btn btn-danger" ng-click="$ctrl.openModal()">
         Compose
     </button>
-
     <ul class="inbox-sections list-unstyled">
         <li class="pending" ng-repeat="mailbox in $ctrl.mailboxes" ng-click="$ctrl.choseMailbox(mailbox)">{{mailbox.title}}</li>
     </ul>
-
-    {{$ctrl.mailboxId}}
 </div><!-- sidebar -->
 
 <div ui-view></div>
