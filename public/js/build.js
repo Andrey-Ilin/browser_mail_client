@@ -291,7 +291,7 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n    <form class=\"form-signin login-form\" name=\"loginForm\" ng-submit=\"$ctrl.signIn()\" novalidate>\n        <h2 class=\"form-signin-heading login-title\">Please sign in</h2>\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }\">\n            <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n            <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" placeholder=\"Email address\"\n                   required=\"\" autofocus=\"\"\n                   ng-model=\"$ctrl.login\">\n            <div ng-messages=\"loginForm.email.$error\">\n                <div ng-message=\"email\"  class=\"alert alert-danger\">Enter a valid\n                    email.</div>\n            </div>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }\">\n            <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"inputPassword\" class=\"form-control\" placeholder=\"Password\" required=\"\"\n                   ng-model=\"$ctrl.password\" ng-minlength=\"2\" autofocus=\"\">\n\n            <div ng-show=\"loginForm.password.$error.minlength\" class=\"alert alert-danger\">Password is too short.</div>\n        </div>\n\n        <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n    </form>\n</div>\n";
+	module.exports = "<div>\n    <form class=\"form-signin login-form\" name=\"loginForm\" ng-submit=\"$ctrl.signIn()\" novalidate>\n        <h2 class=\"form-signin-heading login-title\">Please sign in</h2>\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }\">\n            <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n            <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" placeholder=\"Email address\"\n                   required=\"\" autofocus=\"\"\n                   ng-model=\"$ctrl.login\">\n        </div>\n        <div ng-messages=\"loginForm.email.$error\">\n            <div ng-message=\"email\"  class=\"alert alert-danger\">Enter a valid\n                email.</div>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }\">\n            <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"inputPassword\" class=\"form-control\" placeholder=\"Password\" required=\"\"\n                   ng-model=\"$ctrl.password\" ng-minlength=\"2\" autofocus=\"\">\n\n            <div ng-show=\"loginForm.password.$error.minlength\" class=\"alert alert-danger\">Password is too short.</div>\n        </div>\n\n        <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n    </form>\n</div>\n";
 
 /***/ },
 /* 5 */
@@ -349,13 +349,34 @@
 
 	var _mailBoxes2 = _interopRequireDefault(_mailBoxes);
 
+	var _myModalContent = __webpack_require__(28);
+
+	var _myModalContent2 = _interopRequireDefault(_myModalContent);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function controller($scope) {
+	function controller($uibModal) {
 	    var _this = this;
 
 	    this.choseMailbox = function (mailbox) {
 	        _this.mailboxId = mailbox._id;
+	    };
+
+	    this.modalController = function ($scope, $uibModalInstance) {
+	        // $scope.ok = function () {
+	        //     $uibModalInstance.close(----data from form-----);
+	        // };
+
+	        $scope.cancel = function () {
+	            $uibModalInstance.dismiss('cancel');
+	        };
+	    };
+
+	    this.openModal = function () {
+	        $uibModal.open({
+	            template: _myModalContent2.default,
+	            controller: _this.modalController
+	        });
 	    };
 	}
 
@@ -371,7 +392,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"sidebar col-sm-2\">\n    <button class=\"compose btn btn-danger\">\n        Compose\n    </button>\n\n    <ul class=\"inbox-sections list-unstyled\">\n        <li class=\"pending\" ng-repeat=\"mailbox in $ctrl.mailboxes\" ng-click=\"$ctrl.choseMailbox(mailbox)\">{{mailbox.title}}</li>\n    </ul>\n\n    {{$ctrl.mailboxId}}\n</div><!-- sidebar -->\n\n<div ui-view></div>";
+	module.exports = "<div class=\"sidebar col-sm-2\">\n    <button class=\"compose btn btn-danger\" ng-click=\"$ctrl.openModal()\">\n        Compose\n    </button>\n\n    <ul class=\"inbox-sections list-unstyled\">\n        <li class=\"pending\" ng-repeat=\"mailbox in $ctrl.mailboxes\" ng-click=\"$ctrl.choseMailbox(mailbox)\">{{mailbox.title}}</li>\n    </ul>\n\n    {{$ctrl.mailboxId}}\n</div><!-- sidebar -->\n\n<div ui-view></div>";
 
 /***/ },
 /* 9 */
@@ -726,75 +747,6 @@
 	    "ngInject";
 
 	    this.db = DbService.getDb;
-	    // {
-	    //     "mailboxes": [{"title": "Inbox"},
-	    //         {"title": "Sent Mail"},
-	    //         {"title": "Drafts"},
-	    //         {"title": "Trash"},
-	    //         {"title": "Spam"}],
-	    //     "letters": [{
-	    //         "mailbox": "577106a66baa8d7d1bfe5dc6",
-	    //         "subject": "job",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test@mail.com"},
-	    //         {"mailbox": "577106a66baa8d7d1bfe5dc6",
-	    //         "subject": "job2",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test2@mail.com"},
-	    //         {"mailbox": "577106c16baa8d7d1bfe5dc7",
-	    //         "subject": "job3",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test3@mail.com"},
-	    //         {"mailbox": "577106c16baa8d7d1bfe5dc7",
-	    //         "subject": "job4",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test4@mail.com"},
-	    //         {"mailbox": "577106cc6baa8d7d1bfe5dc8",
-	    //         "subject": "job5",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test5@mail.com"},
-	    //         {"mailbox": "577106d46baa8d7d1bfe5dc9",
-	    //         "subject": "job6",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test6@mail.com"},
-	    //         {"mailbox": "577106d46baa8d7d1bfe5dc9",
-	    //         "subject": "job7",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test6@mail.com"},
-	    //         {"mailbox": "577106d46baa8d7d1bfe5dc9",
-	    //         "subject": "job8",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test6@mail.com"},
-	    //         {"mailbox": "577106df6baa8d7d1bfe5dca",
-	    //         "subject": "job10",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test10@mail.com"},
-	    //         {"mailbox": "577106df6baa8d7d1bfe5dca",
-	    //         "subject": "job11",
-	    //         "body": "Lorem ipsum dolor sit amet, ex perpetua convenire est, mei primis atomorum ex, aliquando urbanitas persecuti ei duo.",
-	    //         "to": "test11@mail.com"}],
-	    //     "tasks": [],
-	    //     "users": [{
-	    //         "fullName": "Натальина Наталья",
-	    //         "avatarUrl": "https://randomuser.me/api/portraits/thumb/women/7.jpg",
-	    //         "birthdate": "1990-07-03T00:00:00.000Z",
-	    //         "gender": "F",
-	    //         "address": "ул. Лермонтова, 59",
-	    //         "email": "ivanov@mail.ru"},
-	    //         {"fullName": "Петров Петр",
-	    //         "avatarUrl": "https://randomuser.me/api/portraits/thumb/men/7.jpg",
-	    //         "birthdate": "1957-01-14T00:00:00.000Z",
-	    //         "gender": "M",
-	    //         "address": "ул.Пушкинская, 13",
-	    //         "email": "ivanov@mail.ru"},
-	    //         {"fullName": "Иванов Иван",
-	    //         "avatarUrl": "https://randomuser.me/api/portraits/thumb/men/57.jpg",
-	    //         "birthdate": "1976-10-10T00:00:00.000Z",
-	    //         "gender": "M",
-	    //         "address": "ул. Звенигородская, 47б",
-	    //         "email": "ivanov@mail.ru"
-	    //     }]
-	    // };
 	    this.pushDB = function () {
 	        var _this = this;
 
@@ -901,6 +853,12 @@
 	}();
 
 	exports.default = DbService;
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"modal-header\">\n    <form class=\"form-horizontal\" name=\"emailSendForm\" role=\"form\" novalidate>\n\n        <div class=\"form-group\" ng-class=\"{ 'has-error' : emailSendForm.email.$invalid && !emailSendForm.email.$pristine }\">\n            <label for=\"email\" class=\"col-sm-2 control-label\">To:</label>\n            <div class=\"col-sm-10\">\n                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Email address\" value=\"\" ng-model=\"$ctrl.email\">\n                <div ng-messages=\"emailSendForm.email.$error\">\n                    <div ng-message=\"email\"  class=\"alert-danger\">Enter a valid\n                        email.</div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"name\" class=\"col-sm-2 control-label\">Subject:</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" placeholder=\"\" value=\"\">\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"message\" class=\"col-sm-2 control-label\">Message:</label>\n            <div class=\"col-sm-10\">\n                <textarea class=\"form-control\" rows=\"4\" name=\"message\"></textarea>\n            </div>\n        </div>\n        <div class=\"form-group\">\n            <div class=\"col-sm-10 col-sm-offset-2\">\n                <input id=\"submit\" name=\"submit\" type=\"submit\" value=\"Send\" class=\"btn btn-primary\">\n                <button class=\"btn btn-warning\" ng-click=\"cancel()\">Cancel</button>\n            </div>\n        </div>\n    </form>\n";
 
 /***/ }
 /******/ ]);
